@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <title>Admin Dashboard - MyShop</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+    <th:block th:insert="~{fragments/navbar}"></th:block>
+    <th:block th:insert="~{fragments/message}"></th:block>
+    <div class="container mt-4">
+        <h2>Welcome to Admin Dashboard!</h2>
+        <div>
+            <a href="/admin/add-product" class="btn btn-success">Add Product</a>
+            <a href="/admin/manage-products" class="btn btn-secondary">Manage Products</a>
+        </div>
+    </div>
+    <th:block th:insert="~{fragments/footer}"></th:block>
+</body>
+</html>

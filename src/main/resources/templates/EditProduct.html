@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <title>Edit Product - MyShop</title>
+    <link rel="stylesheet" href="/css/addproduct.css">
+</head>
+<body>
+    <th:block th:insert="~{fragments/navbar}"></th:block>
+    <th:block th:insert="~{fragments/message}"></th:block>
+    <div class="container mt-4">
+        <h2>Edit Product</h2>
+        <form action="/admin/update-product" method="post" th:object="${product}" enctype="multipart/form-data">
+            <input type="hidden" name="id" th:field="*{id}">
+            <div class="form-group">
+                <label for="productName">Product Name:</label>
+                <input th:field="*{name}" type="text" class="form-control" readonly id="productName" name="name" required>
+                <span class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="productPrice">Product Price:</label>
+                <input type="number" th:field="*{price}" class="form-control" id="productPrice" name="price" required>
+                <span class="error-message" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="productCategory">Product Category:</label>
+                <input type="text" th:field="*{category}" class="form-control" id="productCategory" name="category" required>
+                <span class="error-message" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="productStock">Product Stock:</label>
+                <input type="number" th:field="*{stock}" class="form-control" id="productStock" name="stock" required>
+                <span class="error-message" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="productDescription">Product Description:</label>
+                <textarea class="form-control" th:field="*{description}" id="productDescription" name="description" rows="3"
+                    required></textarea>
+                    <span class="error-message" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="productPicture">Product Picture:</label>
+                <input type="file" class="form-control-file" id="productPicture" name="picture" required>
+            </div>
+            <img class="card-img-top" th:src="${product.imagePath}" alt="Product Image">
+
+            <button type="submit" class="btn btn-success">Update Product</button>
+        </form>
+    </div>
+    <th:block th:insert="~{fragments/footer}"></th:block>
+    </body>
+</html>

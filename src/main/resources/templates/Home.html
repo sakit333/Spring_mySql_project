@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:insert="~{fragments/header}"></th:block>
+	<title>MyShop - Home</title>
+	<link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+	<th:block th:insert="~{fragments/navbar}"></th:block>
+	<th:block th:insert="~{fragments/message}"></th:block>
+	<div class="container mt-4">
+		<h2>Welcome to MyShop!</h2>
+		<p>Discover a wide range of products and enjoy secure online shopping.</p>
+		<p>Ultimate Marketplace for Buying and Selling products</p>
+	</div>
+	<th:block th:insert="~{fragments/footer}"></th:block>
+</body>
+</html>

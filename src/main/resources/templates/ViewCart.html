@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<th:block th:insert="~{fragments/header}"></th:block>
+	<title>View Cart</title>
+	<link rel="stylesheet" href="/css/dispproducts.css">
+</head>
+
+<body>
+	<th:block th:insert="~{fragments/navbar}"></th:block>
+    <th:block th:insert="~{fragments/message}"></th:block>
+	<div class="container">
+		<h1>View Cart</h1>
+		<div th:each="product:${items}">
+			<div class="col-md-4 product-card">
+				<div class="card">
+					<img class="card-img-top" th:src="${product.imagePath}" alt="Product Image">
+					<div class="card-body">
+						<h5 class="card-title" th:text="${product.name}"></h5>
+						<p class="card-text" th:text="${product.description}"></p>
+						<p>Quantity: <th:block th:text="${product.quantity}"></th:block>
+						<p>Total Price: <th:block th:text="${product.price}"></th:block>&#8377</p>
+						</p>
+						<a th:href="'/remove-cart/'+${product.id}"><button>Remove from Cart</button></a>
+					</div>
+				</div>
+			</div>
+		</div>
+			<a href="/payment"><button>Proceed to Pay</button></a>
+	</div>
+	<th:block th:insert="~{fragments/footer}"></th:block>
+</body>
+</html>

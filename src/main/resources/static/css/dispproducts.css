@@ -1,0 +1,20 @@
+.container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.product-card {
+    width: calc(33.333% - 20px); /* Adjust card width here */
+    margin-right: 20px;
+    margin-bottom: 20px;
+    float: left;
+}
+
+.product-card .card-body {
+    padding: 20px;
+}
+
+img{
+    height: 250px;
+    width: 250px;
+}

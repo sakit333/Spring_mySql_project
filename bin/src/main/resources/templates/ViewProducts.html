@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <title>View Products</title>
+    <link rel="stylesheet" href="/css/dispproducts.css">
+</head>
+<body>
+    <th:block th:insert="~{fragments/navbar}"></th:block>
+    <th:block th:insert="~{fragments/message}"></th:block>
+    <div class="container">
+        <h1>View Products</h1>
+        <div th:each="product:${products}">
+            <div class="col-md-4 product-card">
+                <div class="card">
+                    <img class="card-img-top" th:src="${product.imagePath}" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${product.name}"></h5>
+                        <p class="card-text" th:text="${product.description}"></p>
+                        <p>Price: <th:block th:text="${product.price}"></th:block>&#8377</p>
+                        <th:block th:if="${session.customer}">
+                            <button th:if="${product.stock==0}" disabled>Out of Stock</button>
+                            <a th:if="${product.stock>=1}" th:href="'/add-cart/'+${product.id}"><button>Add to
+                                    Cart</button></a>
+                        </th:block>
+                        <a href="/signin"><button th:if="${session.customer==null}">Login to Buy</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:insert="~{fragments/footer}"></th:block>
+</html>

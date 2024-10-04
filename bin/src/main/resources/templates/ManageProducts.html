@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <title>Manage Products - MyShop</title>
+    <link rel="stylesheet" href="/css/dispproducts.css">
+</head>
+<body>
+    <th:block th:insert="~{fragments/navbar}"></th:block>
+    <th:block th:insert="~{fragments/message}"></th:block>
+    <div class="container">
+        <h1>Manage Products</h1>
+        <div th:each="product:${products}">
+            <div class="col-md-4 product-card">
+                <div class="card">
+                    <img class="card-img-top" th:src="${product.imagePath}" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${product.name}"></h5>
+                        <p class="card-text" th:text="${product.description}"></p>
+                        <p>Price: <th:block th:text="${product.price}"></th:block>&#8377</p>
+                        <p>Stock: <th:block th:text="${product.stock}"></th:block>
+                        </p>
+                        <a th:href="'/admin/edit/'+${product.id}" class="btn btn-primary">Edit</a>
+                        <a th:href="'/admin/delete/'+${product.id}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:insert="~{fragments/footer}"></th:block>
+</body>
+</html>

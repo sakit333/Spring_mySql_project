@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<th:block th:insert="~{fragments/header}"></th:block>
+	<title>MyShop - Login</title>
+	<link rel="stylesheet" href="/css/login.css">
+</head>
+
+<body>
+	<th:block th:insert="~{fragments/navbar}"></th:block>
+	<th:block th:insert="~{fragments/message}"></th:block>
+	<div class="container">
+		<h2>Login</h2>
+		<form action="/login" method="post">
+			<div class="form-group">
+				<label for="email">Email:</label>
+				<input type="text" class="form-control" id="email" name="email" placeholder="Enter your email"
+					required>
+			</div>
+			<div class="form-group">
+				<label for="password">Password:</label>
+				<input type="password" class="form-control" id="password" name="password"
+					placeholder="Enter your password" required>
+			</div>
+			<div class="d-flex justify-content-between align-items-center">
+				<a href="/" class="btn btn-secondary">Back</a>
+				<button type="submit" class="btn btn-success">Login</button>
+			</div>
+		</form>
+	</div>
+	<th:block th:insert="~{fragments/footer}"></th:block>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <title>Payment Page</title>
+</head>
+<body>
+    <h1>Final Order Details</h1>
+    <table border="1">
+        <tr th:each="item:${myOrder.items}">
+            <th th:text="${item.name}"></th>
+            <th th:text="${item.quantity}"></th>
+            <th>X</th>
+            <th th:text="${item.price/item.quantity}"></th>
+            <th>=</th>
+            <th th:text="${item.price}"></th>
+        </tr>
+        <tr>
+			<th>Total Price: </th>
+            <th colspan="5" th:text="${myOrder.totalPrice}"></th>
+        </tr>
+        <tr>
+            <th>Date TIme: </th>
+            <th colspan="5" th:text="${myOrder.dateTime}"></th>
+        </tr>
+        <tr>
+            <th>Name: </th>
+            <th colspan="5" th:text="${customer.name}"></th>
+        </tr>
+        <tr>
+            <th>Mobile: </th>
+            <th colspan="5" th:text="${customer.mobile}"></th>
+        </tr>
+    </table>
+
+    <button id="rzp-button1">Pay with Razorpay</button>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script th:inline="javascript">
+        var options = {
+            "key": /*[[${key}]]*/,
+            "amount": /*[[${myOrder.totalPrice*100}]]*/, 
+            "currency": "INR",
+            "name": "s13sh-Shop",
+            "description": "Ecommerce Purchase",
+            "image": "https://static.vecteezy.com/system/resources/previews/015/131/880/original/flat-woman-holding-shopping-bags-cartoon-wallpaper-modern-design-for-shopping-online-website-design-png.png",
+            "order_id": /*[[${myOrder.orderId}]]*/, 
+            "callback_url": "http://localhost:1234/confirm-order/[[${myOrder.id}]]",
+            "prefill": {
+                "name": /*[[${customer.name}]]*/,
+                "email": /*[[${customer.email}]]*/,
+                "contact": /*[['+91'+${customer.mobile}]]*/
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "green"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        document.getElementById('rzp-button1').onclick = function (e) {
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+</body>
+
+</html>

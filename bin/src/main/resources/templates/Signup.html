@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<th:block th:insert="~{fragments/header}"></th:block>
+	<title>MyShop - Sign Up</title>
+	<link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <th:block th:insert="~{fragments/navbar}"></th:block>
+	<div class="container">
+		<h2>Sign Up</h2>
+		<form action="/signup" method="post" th:object="${customer}">
+			<div class="form-group">
+				<label for="name">Name:</label>
+				<input type="text" class="form-control" id="name" th:field="*{name}" name="name"
+					placeholder="Enter your name" required>
+				<span class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+			</div>
+			<div class="form-group">
+				<label for="mobile">Mobile:</label>
+				<input type="tel" class="form-control" id="mobile" th:field="*{mobile}" name="mobile"
+					placeholder="Enter your mobile number" required>
+				<span class="error-message" th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}"></span>
+			</div>
+			<div class="form-group">
+				<label for="email">Email:</label>
+				<input type="email" class="form-control" id="email" th:field="*{email}" name="email"
+					placeholder="Enter your email" required>
+				<span class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+			</div>
+			<div class="form-group">
+				<label for="password">Password:</label>
+				<input type="password" class="form-control" th:field="*{password}" id="password" name="password"
+					placeholder="Enter your password" required>
+				<span class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+			</div>
+			<div class="form-group">
+				<label for="dob">Date of Birth:</label>
+				<input type="date" class="form-control" id="dob" th:field="*{dob}" name="dob" required>
+				<span class="error-message" th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></span>
+			</div>
+			<div class="form-group">
+				<label for="gender">Gender:</label>
+				<select class="form-control" id="gender" name="gender" th:field="*{gender}" required>
+					<option value="" disabled selected>Select your gender</option>
+					<option value="male">Male</option>
+					<option value="female">Female</option>
+					<option value="other">Other</option>
+				</select>
+				<span class="error-message" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
+			</div>
+			<div class="d-flex justify-content-between align-items-center">
+				<a href="/" class="btn btn-secondary">Back</a>
+				<button type="submit" class="btn btn-success">Sign Up</button>
+			</div>
+		</form>
+	</div>
+	<th:block th:insert="~{fragments/footer}"></th:block>
+</body>
+</html>

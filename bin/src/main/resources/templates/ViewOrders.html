@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <title>View Products - MyShop</title>
+    <link rel="stylesheet" href="/css/dispproducts.css">
+</head>
+<body>
+    <th:block th:insert="~{fragments/navbar}"></th:block>
+    <th:block th:insert="~{fragments/message}"></th:block>
+    <div class="container">
+        <h1>View Orders</h1>
+        <div th:each="order:${orders}">
+            <div class="col-md-4 product-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="'Order Date: '+${order.dateTime}"></h5>
+                        <p class="card-text" th:text="'Order Id: '+${order.orderId}"></p>
+                        <p>Price: <th:block th:text="${order.totalPrice}"></th:block>&#8377</p>
+                        <p>Items</p>
+                        <div th:each="item:${order.items}">
+                            <p th:text="${item.name}"></p>
+                            <p th:text="${item.quantity}+'x'+${item.price/item.quantity}+'='+${item.price}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:insert="~{fragments/footer}"></th:block>
+</body>
+</html>

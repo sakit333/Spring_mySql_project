@@ -19,6 +19,11 @@ pipeline {
                     else
                         echo "MariaDB is already installed. Skipping installation."
                     fi
+
+                    # Get database server address details
+                    DB_HOST=$(hostname -I | awk '{print $1}')
+                    DB_PORT=3306  # Default MariaDB port
+                    echo "Database server address: $DB_HOST:$DB_PORT"
                 '''
             }
         }

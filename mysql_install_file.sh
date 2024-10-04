@@ -30,10 +30,15 @@ sudo systemctl status mariadb
 echo "To connect with MySQL use: mysql -u root -p"
 echo "Password: 1234"
 
-# Update the MySQL configuration file to allow remote connections
-sudo sed -i 's/^bind-address.*/bind-address=0.0.0.0/' /etc/my.cnf
+# Update the MySQL configuration file to allow connections
 
-# Restart MariaDB service to apply changes
+# If you want to explicitly allow remote connections, you can add:
+# sudo sed -i 's/^bind-address.*/bind-address=0.0.0.0/' /etc/my.cnf
+
+# If you want to restrict to localhost only, you can add:
+sudo sed -i 's/^bind-address.*/bind-address=127.0.0.1/' /etc/my.cnf
+
+# Remember to restart the MySQL service after making changes:
 sudo systemctl restart mariadb
 
 echo "MySQL configuration updated to allow remote connections and MariaDB service restarted."

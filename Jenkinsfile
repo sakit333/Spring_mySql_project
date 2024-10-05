@@ -47,17 +47,17 @@ pipeline {
             steps {
                  script {
                     // Check if the Spring application is running
-                    def isRunning = sh(script: "pgrep -f target/${springAppJar}", returnStatus: true) == 0
+                    def isRunning = sh(script: "pgrep -f target/${SPRING_APP_JAR}", returnStatus: true) == 0
                     // If running, stop it
                     if (isRunning) {
                         echo "Stopping the running Spring application..."
-                        sh "pkill -f target/${springAppJar}"
+                        sh "pkill -f target/${SPRING_APP_JAR}"
                     } else {
                         echo "No running instance found."
                     }
                     // Start the Spring application
                     echo "Starting the Spring application..."
-                    sh "java -jar target/${springAppJar} &"
+                    sh "java -jar target/${SPRING_APP_JAR} &"
                  }
             }
         }

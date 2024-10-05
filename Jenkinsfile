@@ -51,14 +51,14 @@ pipeline {
                     // If running, stop it
                     if (isRunning) {
                         echo "Stopping the running Spring application..."
-                        sh "pkill -f target/${SPRING_APP_JAR}"
+                        sh "sudo pkill -f target/${SPRING_APP_JAR}"
                     } else {
                         echo "No running instance found."
                     }
                     // Start the Spring application
                     echo "Starting the Spring application..."
-                    sh "java -jar target/${SPRING_APP_JAR} &"
-                 }
+                    sh "sudo nohup java -jar target/${SPRING_APP_JAR} > /dev/null 2>&1 &"
+                }
             }
         }
     }

@@ -14,11 +14,17 @@ pipeline {
         stage('Execute MySQL Install Script') {
             steps {
                 sh '''
-                    if ! command -v mariadb &> /dev/null
-                    then
+                    # Check if MariaDB server is installed
+                    if ! rpm -qa | grep -qw mariadb-server; then
                         echo "MariaDB is not installed. Installing MariaDB..."
-                        chmod +x mysql_install_file.sh
-                        ./mysql_install_file.sh
+                        chmod +x mysql_install_file.sh   # Ensure the MySQL install script is executable
+                        ./mysql_install_file.sh   # Run the MySQL installation script
+                        if rpm -qa | grep -qw mariadb-server; then  # Verify if MariaDB installation was successful
+                            echo "MariaDB installation successful."
+                        else
+                            echo "MariaDB installation failed."
+                            exit 1
+                        fi
                     else
                         echo "MariaDB is already installed. Skipping installation."
                     fi

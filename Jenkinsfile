@@ -45,6 +45,7 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
+                 script {
                     // Check if the Spring application is running
                     def isRunning = sh(script: "pgrep -f target/${springAppJar}", returnStatus: true) == 0
                     // If running, stop it
@@ -57,6 +58,7 @@ pipeline {
                     // Start the Spring application
                     echo "Starting the Spring application..."
                     sh "java -jar target/${springAppJar} &"
+                 }
             }
         }
     }

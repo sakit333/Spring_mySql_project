@@ -14,7 +14,7 @@ pipeline {
         stage('Execute MySQL Install Script') {
             steps {
                 sh '''
-                    // Check if MariaDB server is installed
+                    # Check if MariaDB server is installed
                     def isInstalled = sh(script: "rpm -qa | grep -qw mariadb-server", returnStatus: true) == 0
                     if (!isInstalled) {
                         echo "MariaDB is not installed. Installing MariaDB..."

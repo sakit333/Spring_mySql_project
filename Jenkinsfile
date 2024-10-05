@@ -7,8 +7,6 @@ pipeline {
     environment {
         SPRING_APP_JAR = "my-shop-1.0.jar"  // Replace with your JAR name based on pom.xml
         // SERVER_USER = "root"  // The EC2 user (default for Amazon Linux)
-        // SERVER_HOST = "ec2-your-ec2-public-ip"  // Replace with your EC2 public IP or DNS
-        // SERVER_APP_PATH = "/home/ec2-user/app"  // Path to deploy the JAR file on EC2
     }
     stages {
         stage('Execute MySQL Install Script') {

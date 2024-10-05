@@ -32,7 +32,7 @@ pipeline {
                         }
                         
                         // Get database server address details
-                        def dbHost = sh(script: "hostname -I | awk '{print $1}'", returnStdout: true).trim()
+                        def dbHost = sh(script: "hostname -I | awk "{print $1}"", returnStdout: true).trim()
                         def dbPort = 3306  // Default MariaDB port
                         echo "Database server address: ${dbHost}:${dbPort}"
                     }

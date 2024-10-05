@@ -30,10 +30,11 @@ pipeline {
                         } else {
                             echo "MariaDB is already installed. Skipping installation."
                         }
-                        // // Get database server address details
-                        // def dbHost = sh(script: "hostname -I | awk '{print $1}'", returnStdout: true).trim()
-                        // def dbPort = 3306  // Default MariaDB port
-                        // echo "Database server address: ${dbHost}:${dbPort}"
+                        
+                        // Get database server address details
+                        def dbHost = sh(script: "hostname -I | awk '{print $1}'", returnStdout: true).trim()
+                        def dbPort = 3306  // Default MariaDB port
+                        echo "Database server address: ${dbHost}:${dbPort}"
                     }
                 }
             }

@@ -12,33 +12,32 @@ pipeline {
     }
     stages {
         stage('Execute MySQL Install Script') {
-    steps {
-        script {
-            // Check if MariaDB server is installed
-            def isInstalled = sh(script: "rpm -qa | grep -qw mariadb-server", returnStatus: true) == 0
-            if (!isInstalled) {
-                echo "MariaDB is not installed. Installing MariaDB..."
-                sh "chmod +x mysql_install_file.sh"   // Ensure the MySQL install script is executable
-                sh "sudo ./mysql_install_file.sh"   // Run the MySQL installation script as root
-                isInstalled = sh(script: "rpm -qa | grep -qw mariadb-server", returnStatus: true) == 0  // Verify if installation was successful
-                if (isInstalled) {
-                    echo "MariaDB installation successful."
-                } else {
-                    echo "MariaDB installation failed."
-                    error("Exiting the pipeline due to MariaDB installation failure.")
+            steps {
+                script {
+                    // Check if MariaDB server is installed
+                    def isInstalled = sh(script: "rpm -qa | grep -qw mariadb-server", returnStatus: true) == 0
+                    if (!isInstalled) {
+                        echo "MariaDB is not installed. Installing MariaDB..."
+                        sh "chmod +x mysql_install_file.sh"   // Ensure the MySQL install script is executable
+                        sh "sudo ./mysql_install_file.sh"   // Run the MySQL installation script as root
+                        isInstalled = sh(script: "rpm -qa | grep -qw mariadb-server", returnStatus: true) == 0  // Verify if installation was successful
+                        if (isInstalled) {
+                            echo "MariaDB installation successful."
+                        } else {
+                            echo "MariaDB installation failed."
+                            error("Exiting the pipeline due to MariaDB installation failure.")
+                        }
+                        } else {
+                            echo "MariaDB is already installed. Skipping installation."
+                        }
+                        // Get database server address details
+                        def dbHost = sh(script: "hostname -I | awk '{print $1}'", returnStdout: true).trim()
+                        def dbPort = 3306  // Default MariaDB port
+                        echo "Database server address: ${dbHost}:${dbPort}"
+                    }
                 }
-            } else {
-                echo "MariaDB is already installed. Skipping installation."
             }
-
-            // Get database server address details
-            def dbHost = sh(script: "hostname -I | awk '{print $1}'", returnStdout: true).trim()
-            def dbPort = 3306  // Default MariaDB port
-            echo "Database server address: ${dbHost}:${dbPort}"
         }
-    }
-}
-
 
         stage('Build') {
             steps {

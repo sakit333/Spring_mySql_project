@@ -13,6 +13,7 @@ pipeline {
     stages {
         stage('Execute MySQL Install Script') {
             steps {
+                script {
                 sh '''
                     # Check if MariaDB server is installed
                     def isInstalled = sh(script: "rpm -qa | grep -qw mariadb-server", returnStatus: true) == 0
@@ -36,6 +37,7 @@ pipeline {
                     def dbPort = 3306  // Default MariaDB port
                     echo "Database server address: ${dbHost}:${dbPort}"
                 '''
+                }
             }
         }
 

@@ -6,9 +6,9 @@ pipeline {
     }
     environment {
         SPRING_APP_JAR = "my-shop-1.0.jar"  // Replace with your JAR name based on pom.xml
-        SERVER_USER = "root"  // The EC2 user (default for Amazon Linux)
-        SERVER_HOST = "ec2-your-ec2-public-ip"  // Replace with your EC2 public IP or DNS
-        SERVER_APP_PATH = "/home/ec2-user/app"  // Path to deploy the JAR file on EC2
+        // SERVER_USER = "root"  // The EC2 user (default for Amazon Linux)
+        // SERVER_HOST = "ec2-your-ec2-public-ip"  // Replace with your EC2 public IP or DNS
+        // SERVER_APP_PATH = "/home/ec2-user/app"  // Path to deploy the JAR file on EC2
     }
     stages {
         stage('Execute MySQL Install Script') {
@@ -74,38 +74,3 @@ pipeline {
         }
     }
 }
-// stage('Deploy to EC2') {
-//             steps {
-//                 // Deploy the JAR to EC2 using SSH
-//                 sshagent(['ec2-ssh-credentials']) {  // Replace with your SSH credentials ID in Jenkins
-//                     sh """
-//                     scp target/${SPRING_APP_JAR} ${SERVER_USER}@${SERVER_HOST}:${SERVER_APP_PATH}/
-//                     ssh ${SERVER_USER}@${SERVER_HOST} << EOF
-//                         pkill -f ${SPRING_APP_JAR} || true  # Stop existing application if running
-//                         nohup java -jar ${SERVER_APP_PATH}/${SPRING_APP_JAR} > /dev/null 2>&1 &  # Start the new version
-//                     EOF
-//                     """
-//                 }
-//             }
-//         }
-// # Explanation:
-// # 1. pkill -f ${SPRING_APP_JAR} || true
-// #    - This command attempts to stop any existing instance of the application.
-// #    - 'pkill' sends a signal to terminate processes.
-// #    - '-f' option allows matching against the full command line.
-// #    - '${SPRING_APP_JAR}' is the name of the JAR file to match.
-// #    - '|| true' ensures the script continues even if no matching process is found.
-
-// # 2. nohup java -jar ${SERVER_APP_PATH}/${SPRING_APP_JAR} > /dev/null 2>&1 &
-// #    - This command starts the new version of the application.
-// #    - 'nohup' allows the process to continue running even if the SSH session is closed.
-// #    - 'java -jar' runs the Java application from the JAR file.
-// #    - '${SERVER_APP_PATH}/${SPRING_APP_JAR}' is the full path to the JAR file.
-// #    - '> /dev/null 2>&1' redirects both stdout and stderr to /dev/null, suppressing output.
-// #    - '&' at the end runs the process in the background.
-
-// # These commands ensure that any existing instance of the application is stopped
-// # before starting a new instance, allowing for smooth updates and deployments.  
-// manula checking
-// sh "pkill -f ${SPRING_APP_JAR} || true"
-// sh "java -jar ${SPRING_APP_JAR} &"

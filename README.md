@@ -53,3 +53,9 @@ show tables;
 ```bash
 select * from customer;
 ```
+---
+## add jenkins user to server
+```bash
+visudo
+jenkins ALL=(ALL) NOPASSWD: ALL
+```

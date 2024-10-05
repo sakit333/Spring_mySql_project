@@ -45,8 +45,18 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
-                sh "pkill -f ${SPRING_APP_JAR} || true"
-                sh "java -jar ${SPRING_APP_JAR} &"
+                    // Check if the Spring application is running
+                    def isRunning = sh(script: "pgrep -f target/${springAppJar}", returnStatus: true) == 0
+                    // If running, stop it
+                    if (isRunning) {
+                        echo "Stopping the running Spring application..."
+                        sh "pkill -f target/${springAppJar}"
+                    } else {
+                        echo "No running instance found."
+                    }
+                    // Start the Spring application
+                    echo "Starting the Spring application..."
+                    sh "java -jar target/${springAppJar} &"
             }
         }
     }
@@ -92,3 +102,6 @@ pipeline {
 
 // # These commands ensure that any existing instance of the application is stopped
 // # before starting a new instance, allowing for smooth updates and deployments.  
+// manula checking
+// sh "pkill -f ${SPRING_APP_JAR} || true"
+// sh "java -jar ${SPRING_APP_JAR} &"
